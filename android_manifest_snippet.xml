@@ -1,0 +1,51 @@
+<!--
+  ANDROID_MANIFEST_SNIPPET.XML
+  ============================
+  Este arquivo NÃO faz parte do projeto Flutter em si — é só uma
+  referência. Depois de rodar `flutter create .` (veja o README.md),
+  abra o arquivo gerado:
+
+      android/app/src/main/AndroidManifest.xml
+
+  E aplique as duas alterações abaixo.
+
+  1) PERMISSÕES
+  --------------
+  Cole estas linhas DENTRO da tag <manifest>, mas FORA da tag
+  <application>...</application> (ou seja, como filhas diretas de
+  <manifest>, geralmente logo no topo do arquivo):
+-->
+
+<uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+<!-- Necessária para o contador de passos (sensor de "reconhecimento de atividade"). -->
+
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+<!-- Necessária no Android 13+ para o app poder pedir permissão de notificação. -->
+
+<uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+<!-- Necessária no Android 12+ para os lembretes tocarem no horário exato.
+     Se preferir não lidar com essa permissão especial, troque no código
+     `AndroidScheduleMode.exactAllowWhileIdle` por
+     `AndroidScheduleMode.inexactAllowWhileIdle` em
+     lib/data/services/notification_service.dart — os lembretes passam a
+     tocar com uma pequena janela de tolerância, sem precisar da permissão. -->
+
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+<!-- Recomendada para que lembretes recorrentes sobrevivam a um reinício
+     do aparelho (o pacote flutter_local_notifications já lida com boa
+     parte disso internamente ao reagendar notificações "exatas"). -->
+
+<!--
+  2) ÍCONE DO APP (já configurado por padrão, mas confira)
+  ----------------------------------------------------------
+  Dentro da tag <application>, o atributo android:icon deve apontar para
+  o ícone gerado pelo flutter_launcher_icons (ver ICONE_TUTORIAL.md):
+
+      <application
+          android:label="TIKA"
+          android:icon="@mipmap/ic_launcher"
+          ...>
+
+  Isso já vem assim por padrão em projetos Flutter — na maioria dos
+  casos você não precisa mexer aqui, só rodar o gerador de ícones.
+-->
